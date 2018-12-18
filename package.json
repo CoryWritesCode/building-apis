@@ -1,0 +1,15 @@
+{
+  "name": "building-apis",
+  "version": "1.0.0",
+  "description": "Building APIs for Covalence Lab",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cory Cunningham",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4"
+  }
+}
