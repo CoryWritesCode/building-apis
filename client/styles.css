@@ -33,6 +33,6 @@ button:hover {
   cursor: pointer;
 }
 
-#editor {
-
+#edit-chirp {
+  padding: 10px;
 }

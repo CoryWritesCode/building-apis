@@ -8,29 +8,9 @@ function getChirps() {
       $.each(res, (key, obj) => {
         if (obj.text) {
         $('.chirp-container').append(`<div class="chirp" id="${key}">${obj.text}</div>`);
-        $(`#${key}`).append(`<button class="${key}" id="editor" type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="${key}">edit</button>`);
+        $(`#${key}`).append(`<button id="editor" type="button" onclick="editChirp(${key})">edit</button>`);
         $(`#${key}`).append(`<button id="deleter" type="button" onclick="deleteChirp(${key})">x</button>`);
         }
-
-        $('#exampleModal').on('show.bs.modal', (e) => {
-          let button = $(e.relatedTarget);
-          let value = button.data('whatever');
-          let newChirp = $('#edit-chirp').val();
-          let text = { text: newChirp };
-
-          console.log(button);
-          console.log(newChirp);
-          console.log(value);
-
-          $('button#save').click(function (e) {
-            e.preventDefault();
-
-            editChirp(value, text);
-
-            location.reload();
-          });
-
-        });
 
       });
 
@@ -53,14 +33,14 @@ function deleteChirp(key) {
 
 }
 
-function editChirp(value, text) {
+function saveNewChirp(value, text) {
 
   $.ajax({
 
     method: "PUT",
     url: `http://localhost:3000/api/chirps/${value}`,
     data: JSON.stringify(text),
-    dataType: "application/json; charset=utf-8",
+    contentType: "application/json; charset=utf-8",
 
   });
 
@@ -83,10 +63,17 @@ $('#submit').click(function (e) {
 
 });
 
-$('#editor').click(function (e) {
-  e.preventDefault();
-  console.log(e.target);
+function editChirp(key) {
+  $('#exampleModal').modal('show');
 
-});
+  $('button#save').click(function (e) {
+
+    let value = $('#edit-chirp').val();
+    let text = { text: value }
+    saveNewChirp(key, text);
+
+    location.reload();
+  });
+};
 
 getChirps();
